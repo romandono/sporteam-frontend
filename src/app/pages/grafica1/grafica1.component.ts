@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy} from '@angular/core';
-import { ChartType } from 'chart.js';
-import { MultiDataSet, Label, Color } from 'ng2-charts';
+import { Chart, ChartConfiguration, ChartType, registerables } from 'chart.js';
+
+Chart.register(...registerables);
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -12,15 +13,17 @@ import { MultiDataSet, Label, Color } from 'ng2-charts';
 export class Grafica1Component {
 
   // Doughnut
-  public doughnutChartLabels: Label[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-  public doughnutChartData: MultiDataSet = [
-    [350, 450, 100]
-  ];
+  public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
+  public doughnutChartData: ChartConfiguration<'doughnut'>['data'] = {
+    labels: this.doughnutChartLabels,
+    datasets: [
+      {
+        data: [350, 450, 100],
+        backgroundColor: ['#6857E6', '#009FEE', '#F02059']
+      }
+    ]
+  };
   public doughnutChartType: ChartType = 'doughnut';
-
-  public colors: Color[] = [
-    { backgroundColor: [ '#6857E6', '#009FEE', '#F02059']}
-  ];
 
   constructor() { }
 
