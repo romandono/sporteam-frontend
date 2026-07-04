@@ -1,1 +1,0 @@
-{"ast":null,"code":"// Cambiar url de servicio\nexport const environment = {\n  production: true,\n  base_url: 'https://sporteam-dev.herokuapp.com/api'\n};","map":null,"metadata":{},"sourceType":"module"}
