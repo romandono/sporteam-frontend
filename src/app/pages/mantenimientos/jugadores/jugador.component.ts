@@ -8,7 +8,7 @@ import { Location } from '@angular/common';
 import dayjs from 'dayjs';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-jugador',
     templateUrl: './jugador.component.html',
     styles: [],

@@ -3,7 +3,7 @@ import { EstadisticaService } from '../../services/estadistica.service';
 import { Estadistica } from '../../models/estadistica.model';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-estadisticas',
     templateUrl: './estadisticas.component.html',
     styleUrls: ['./estadisticas.component.css'],

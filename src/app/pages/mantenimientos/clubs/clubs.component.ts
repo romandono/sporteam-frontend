@@ -15,7 +15,7 @@ import * as _ from 'lodash';
 import { UsuarioService } from '../../../services/usuario.service';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-clubs',
     templateUrl: './clubs.component.html',
     styles: [],

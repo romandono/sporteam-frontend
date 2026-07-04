@@ -4,7 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import {RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import { provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http'
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -24,5 +24,5 @@ import { MatRadioModule } from '@angular/material/radio';
         MatSelectModule,
         MatIconModule,
         MatInputModule,
-        MatRadioModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        MatRadioModule], providers: [provideHttpClient(withXhr(), withInterceptorsFromDi())] })
 export class AuthModule { }

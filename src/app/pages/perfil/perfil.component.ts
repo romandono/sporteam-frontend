@@ -16,7 +16,7 @@ import { Entrenador } from '../../models/usuarios/entrenador.model';
 import dayjs from 'dayjs';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-perfil',
     templateUrl: './perfil.component.html',
     styles: [],

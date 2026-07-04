@@ -10,7 +10,7 @@ import { JugadorService } from '../../services/jugador.service';
 import { EntrenadorService } from '../../services/entrenador.service';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrls: ['./register.component.css'],

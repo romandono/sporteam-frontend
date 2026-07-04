@@ -6,7 +6,7 @@ import { Usuario } from '../../models/usuarios/usuario.model';
 declare function customInitFunctions(): any;
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-sidebar',
     templateUrl: './sidebar.component.html',
     styles: [],

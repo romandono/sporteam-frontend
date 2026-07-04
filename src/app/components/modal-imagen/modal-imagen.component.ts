@@ -4,7 +4,7 @@ import { FileUploadService } from '../../services/file-upload.service';
 import Swal from 'sweetalert2';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-modal-imagen',
     templateUrl: './modal-imagen.component.html',
     styles: [],

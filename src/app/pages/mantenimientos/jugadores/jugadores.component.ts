@@ -14,7 +14,7 @@ import { ZonaService } from '../../../services/zona.service';
 import { ClubService } from '../../../services/club.service';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-jugadores',
     templateUrl: './jugadores.component.html',
     styles: [],

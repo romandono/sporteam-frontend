@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { SettingsService } from '../services/settings.service';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.Eager,
     selector: 'app-pages',
     templateUrl: './pages.component.html',
     styles: [],
