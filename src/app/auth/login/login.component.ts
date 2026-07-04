@@ -52,12 +52,14 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.usuarioService.login(this.loginForm.value)
+    this.usuarioService.login(this.loginForm.getRawValue() as LoginForm)
         .subscribe(resp => {
           
-          if(this.loginForm.get('remember')!.value) {
-            localStorage.setItem('email', this.loginForm.get('email')!.value);
-            localStorage.setItem('remember', this.loginForm.get('remember')!.value);
+          const email = this.loginForm.get('email')!.value ?? '';
+          const remember = this.loginForm.get('remember')!.value ?? false;
+          if(remember) {
+            localStorage.setItem('email', email as string);
+            localStorage.setItem('remember', String(remember));
           } else {
             localStorage.removeItem('email');
             localStorage.removeItem('remember');

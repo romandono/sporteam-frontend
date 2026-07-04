@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class Zona {\n  constructor(nombreZona, _id) {\n    this.nombreZona = nombreZona;\n    this._id = _id;\n  }\n}","map":null,"metadata":{},"sourceType":"module"}
