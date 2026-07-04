@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { ChartType } from 'chart.js';
 import { MultiDataSet, Label, Color } from 'ng2-charts';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-grafica1',
   templateUrl: './grafica1.component.html',
   styles: [

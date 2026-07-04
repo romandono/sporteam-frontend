@@ -1,5 +1,5 @@
 import { Zona } from './../../models/zona.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Usuario } from 'src/app/models/usuarios/usuario.model';
 import { UsuarioService } from '../../services/usuario.service';
@@ -13,11 +13,10 @@ import { EntrenadorService } from '../../services/entrenador.service';
 import { Jugador } from '../../models/usuarios/jugador.model';
 import { Entrenador } from '../../models/usuarios/entrenador.model';
 
-import * as _moment from 'moment';
-
-const moment = _moment;
+import dayjs from 'dayjs';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
   styles: [
@@ -80,7 +79,7 @@ export class PerfilComponent implements OnInit {
       role: [null, Validators.required],
       club: [""],
       nombreDeportivo: [this.jugador?.nombreDeportivo],
-      fechaNacimiento: [moment(this.jugador?.fechaNacimiento)],
+      fechaNacimiento: [this.jugador?.fechaNacimiento ? new Date(this.jugador.fechaNacimiento!) : null],
       lateralidad: [this.jugador?.lateralidad],
       demarcacion: [this.jugador?.demarcacion],
       altura: [this.jugador?.altura],
@@ -97,7 +96,7 @@ export class PerfilComponent implements OnInit {
         .subscribe(jugador => {
           this.jugador = jugador;
           this.perfilForm.controls['nombreDeportivo'].setValue(this.jugador.nombreDeportivo);
-          this.perfilForm.controls['fechaNacimiento'].setValue(moment(this.jugador.fechaNacimiento));
+          this.perfilForm.controls['fechaNacimiento'].setValue(new Date(this.jugador.fechaNacimiento!));
           this.perfilForm.controls['lateralidad'].setValue(this.jugador.lateralidad);
           this.perfilForm.controls['demarcacion'].setValue(this.jugador.demarcacion);
           this.perfilForm.controls['altura'].setValue(this.jugador.altura);
@@ -125,8 +124,6 @@ export class PerfilComponent implements OnInit {
 
     switch(this.usuario.role) {
       case 'JUGADOR_ROLE':
-        const date = moment(this.perfilForm.get('fechaNacimiento')?.value);
-        this.perfilForm.controls['fechaNacimiento'].setValue(date);
         if (this.perfilForm.controls['estadoDeportivo'].value === 'Sin equipo') {
           this.eliminarClub();
         }

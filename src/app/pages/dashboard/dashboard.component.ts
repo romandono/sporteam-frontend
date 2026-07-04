@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../models/usuarios/usuario.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styles: [

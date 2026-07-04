@@ -1,6 +1,6 @@
 import { Zona } from './../../../models/zona.model';
 import { Entrenador } from './../../../models/usuarios/entrenador.model';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UsuarioService } from '../../../services/usuario.service';
 import { EntrenadorService } from '../../../services/entrenador.service';
@@ -14,6 +14,7 @@ import { ZonaService } from '../../../services/zona.service';
 import { ClubService } from '../../../services/club.service';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-entrenadores',
   templateUrl: './entrenadores.component.html',
   styles: [

@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy} from '@angular/core';
 import { EstadisticaService } from '../../services/estadistica.service';
 import { Estadistica } from '../../models/estadistica.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-estadisticas',
   templateUrl: './estadisticas.component.html',
   styleUrls: ['./estadisticas.component.css']
