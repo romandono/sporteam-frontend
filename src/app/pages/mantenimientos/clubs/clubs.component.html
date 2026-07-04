@@ -1,164 +1,187 @@
 <div class="row animated fadeIn fast">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <form method="post">
+          <h3>Búsqueda de Clubs</h3>
+          <div class="text-center">
+            <!--<input type="text" class="form-control" placeholder="Buscar club..." (keyup)="buscar(txtTermino.value)" #txtTermino>-->
+            <mat-form-field class="m-r-40">
+              <input matInput placeholder="Nombre" name="nombre" [(ngModel)]="nombre" (keyup)="filterValue('nombre', nombre)" maxlength="7">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="m-r-40">
+              <mat-label>Zona</mat-label>
+              <mat-select name="zona" [(ngModel)]="zona" (selectionChange)="filterZona(zona)">
+                @for (zona of zonas; track zona) {
+                  <mat-option [value]="zona._id">
+                    {{zona.nombreZona}}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <button type="reset" (click)="cleanFilters()" class="btn btn-secondary"><i class="fa fa-refresh"></i></button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (cargando) {
+  <div class="row animated fadeIn fast">
     <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <form method="post">
-                    <h3>Búsqueda de Clubs</h3>
-                    <div class="text-center">
-                        <!--<input type="text" class="form-control" placeholder="Buscar club..." (keyup)="buscar(txtTermino.value)" #txtTermino>-->
-                        <mat-form-field class="m-r-40">
-                            <input matInput placeholder="Nombre" name="nombre" [(ngModel)]="nombre" (keyup)="filterValue('nombre', nombre)" maxlength="7">
-                        </mat-form-field>
+      <div class="alert alert-info text-center">
+        <h4 class="alert-headi">Cargando</h4>
+        <i class="fa fa-spin fa-refresh fa-2x"></i>
+        <p class="mb-0">Por favor espere</p>
+      </div>
+    </div>
+  </div>
+}
 
-                        <mat-form-field appearance="fill" class="m-r-40">
-                            <mat-label>Zona</mat-label>
-                            <mat-select name="zona" [(ngModel)]="zona" (selectionChange)="filterZona(zona)">
-                                <mat-option *ngFor="let zona of zonas" [value]="zona._id">
-                                    {{zona.nombreZona}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-
-                        <button type="reset" (click)="cleanFilters()" class="btn btn-secondary"><i class="fa fa-refresh"></i></button>
-                    </div>
-
-                </form>
-
+@if (!cargando) {
+  <div class="row animated fadeIn fast">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Clubs@if (usuarioService.usuario.role === 'ADMIN_ROLE') {
+            <button data-toggle="modal" data-target=".crear-club-modal" class="btn btn-themecolor float-right"><i class="fa fa-plus "></i> Crear club</button>
+          }</h3>
+          <h4 class="card-subtitle ">Clubs registrados en la aplicación: <span class="label label-rounded label-themecolor ">{{totalClubs}}</span></h4>
+          @if (clubs.length> 0) {
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th class="w100">Avatar</th>
+                    <th>Nombre</th>
+                    <th>Localidad</th>
+                    <th>Provincia</th>
+                    <th>Modalidad</th>
+                    <th>Zona</th>
+                    @if (usuarioService.usuario.role === 'ADMIN_ROLE') {
+                      <th class="text-nowrap">Action</th>
+                    }
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (club of clubsTemp | paginate: {itemsPerPage: 5, currentPage: p }; track club) {
+                    <tr>
+                      <td class="text-center">
+                        @if (usuarioService.usuario.role !== 'ADMIN_ROLE') {
+                          <img [src]="club.image | imagen:'clubs'" [alt]="club.nombre" class="avatar">
+                        }
+                        @if (usuarioService.usuario.role === 'ADMIN_ROLE') {
+                          <img [src]="club.image | imagen:'clubs'" [alt]="club.nombre" class="avatar" (click)="abrirModal(club)">
+                        }
+                      </td>
+                      <td>{{club.nombre}}</td>
+                      <td>{{club.localidad}}</td>
+                      <td>{{club.provincia.nombre}}</td>
+                      <td>{{club.modalidad}}</td>
+                      <td>
+                        {{club.zona.nombreZona}}
+                      </td>
+                      @if (usuarioService.usuario.role === 'ADMIN_ROLE') {
+                        <td class="text-nowrap text-center">
+                          <a data-toggle="tooltip" data-original-title="Ver"> <i class="fa fa-search text-inverse m-r-10"></i> </a>
+                          <a data-toggle="tooltip" data-original-title="Eliminar" (click)="eliminarClub(club)">
+                            <i class="fa fa-close text-danger"></i>
+                          </a>
+                        </td>
+                      }
+                    </tr>
+                  }
+                </tbody>
+              </table>
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="row animated fadeIn fast" *ngIf="cargando">
-    <div class="col-12">
-
-        <div class="alert alert-info text-center">
-            <h4 class="alert-headi">Cargando</h4>
-            <i class="fa fa-spin fa-refresh fa-2x"></i>
-            <p class="mb-0">Por favor espere</p>
-        </div>
-
-    </div>
-</div>
-
-<div class="row animated fadeIn fast" *ngIf="!cargando">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="card-title">Clubs<button *ngIf="usuarioService.usuario.role === 'ADMIN_ROLE'" data-toggle="modal" data-target=".crear-club-modal" class="btn btn-themecolor float-right"><i class="fa fa-plus "></i> Crear club</button></h3>
-                <h4 class="card-subtitle ">Clubs registrados en la aplicación: <span class="label label-rounded label-themecolor ">{{totalClubs}}</span></h4>
-
-                <div *ngIf="clubs.length> 0" class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="w100">Avatar</th>
-                                <th>Nombre</th>
-                                <th>Localidad</th>
-                                <th>Provincia</th>
-                                <th>Modalidad</th>
-                                <th>Zona</th>
-                                <th *ngIf="usuarioService.usuario.role === 'ADMIN_ROLE'" class="text-nowrap">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let club of clubsTemp | paginate: {itemsPerPage: 5, currentPage: p }">
-                                <td class="text-center">
-                                    <img *ngIf="usuarioService.usuario.role !== 'ADMIN_ROLE'" [src]="club.image | imagen:'clubs'" [alt]="club.nombre" class="avatar">
-                                    <img *ngIf="usuarioService.usuario.role === 'ADMIN_ROLE'" [src]="club.image | imagen:'clubs'" [alt]="club.nombre" class="avatar" (click)="abrirModal(club)">
-                                </td>
-                                <td>{{club.nombre}}</td>
-                                <td>{{club.localidad}}</td>
-                                <td>{{club.provincia.nombre}}</td>
-                                <td>{{club.modalidad}}</td>
-                                <td>
-                                    {{club.zona.nombreZona}}
-                                </td>
-                                <td *ngIf="usuarioService.usuario.role === 'ADMIN_ROLE'" class="text-nowrap text-center">
-                                    <a data-toggle="tooltip" data-original-title="Ver"> <i class="fa fa-search text-inverse m-r-10"></i> </a>
-                                    <a data-toggle="tooltip" data-original-title="Eliminar" (click)="eliminarClub(club)">
-                                        <i class="fa fa-close text-danger"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div *ngIf="clubs.length === 0" class="row">
-                    <div class="col-12">
-                        <div class="alert alert-info text-center">No existen clubs registrados. </div>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <!-- <button *ngIf="!primeraPagina" (click)="cambiarPagina(-5)" class="btn btn-themecolor">Anteriores</button> &nbsp;
-                    <button *ngIf="!ultimaPagina" (click)="cambiarPagina(5)" class="btn btn-themecolor float-right">Siguientes</button> -->
-                    <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-                </div>
+          }
+          @if (clubs.length === 0) {
+            <div class="row">
+              <div class="col-12">
+                <div class="alert alert-info text-center">No existen clubs registrados. </div>
+              </div>
             </div>
+          }
+          <div class="text-center">
+            <!-- <button *ngIf="!primeraPagina" (click)="cambiarPagina(-5)" class="btn btn-themecolor">Anteriores</button> &nbsp;
+            <button *ngIf="!ultimaPagina" (click)="cambiarPagina(5)" class="btn btn-themecolor float-right">Siguientes</button> -->
+            <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+}
 
 <div class="modal fade crear-club-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
-                <button id="closeModal" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
+        <button id="closeModal" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+        <form class="form p-t-20" [formGroup]="clubForm" (ngSubmit)="crearClub()">
+          <div class="form-group">
+            <label for="exampleInputuname">Nombre</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-user"></i></div>
+              <input type="text" class="form-control" id="exampleInputuname" placeholder="Nombre" formControlName="nombre">
             </div>
-            <div class="modal-body">
-                <form class="form p-t-20" [formGroup]="clubForm" (ngSubmit)="crearClub()">
-                    <div class="form-group">
-                        <label for="exampleInputuname">Nombre</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-user"></i></div>
-                            <input type="text" class="form-control" id="exampleInputuname" placeholder="Nombre" formControlName="nombre">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="localidad">Localidad</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-user"></i></div>
-                            <input type="text" class="form-control" id="localidad" placeholder="Localidad" formControlName="localidad">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="provincia">Provincia</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-world"></i></div>
-                            <select class="form-control" id="provincia" formControlName="provincia">
-                                <option value="">Seleccione...</option>
-                                <option *ngFor="let provincia of provincias" [ngValue]="provincia._id">{{provincia.nombre}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="modalidad">Modalidad</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-user"></i></div>
-                            <input type="text" class="form-control" id="modalidad" placeholder="Modalidad" formControlName="modalidad">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="zona">Zona</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-world"></i></div>
-                            <select class="form-control" id="zona" formControlName="zona">
-                                <option value="">Seleccione...</option>
-                                <option *ngFor="let zona of zonas" [ngValue]="zona._id">{{zona.nombreZona}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-success waves-effect waves-light m-r-10 float-right" [disabled]="clubForm.invalid">
-                        <i class="fa fa-save"></i>
-                        Guardar cambios</button>
-                </form>
+          </div>
+          <div class="form-group">
+            <label for="localidad">Localidad</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-user"></i></div>
+              <input type="text" class="form-control" id="localidad" placeholder="Localidad" formControlName="localidad">
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+          </div>
+          <div class="form-group">
+            <label for="provincia">Provincia</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-world"></i></div>
+              <select class="form-control" id="provincia" formControlName="provincia">
+                <option value="">Seleccione...</option>
+                @for (provincia of provincias; track provincia) {
+                  <option [ngValue]="provincia._id">{{provincia.nombre}}</option>
+                }
+              </select>
             </div>
-        </div>
-        <!-- /.modal-content -->
+          </div>
+          <div class="form-group">
+            <label for="modalidad">Modalidad</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-user"></i></div>
+              <input type="text" class="form-control" id="modalidad" placeholder="Modalidad" formControlName="modalidad">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="zona">Zona</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-world"></i></div>
+              <select class="form-control" id="zona" formControlName="zona">
+                <option value="">Seleccione...</option>
+                @for (zona of zonas; track zona) {
+                  <option [ngValue]="zona._id">{{zona.nombreZona}}</option>
+                }
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success waves-effect waves-light m-r-10 float-right" [disabled]="clubForm.invalid">
+            <i class="fa fa-save"></i>
+          Guardar cambios</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+      </div>
     </div>
-    <!-- /.modal-dialog -->
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
 </div>

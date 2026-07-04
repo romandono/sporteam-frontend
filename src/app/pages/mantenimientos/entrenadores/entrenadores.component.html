@@ -1,185 +1,209 @@
 <div class="row animated fadeIn fast">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <form method="post">
+          <!-- <input type="text" class="form-control" placeholder="Buscar entrenador..." (keyup)="buscar(txtTermino.value)" #txtTermino> -->
+          <h3>Búsqueda de entrenadores</h3>
+          <div class="text-center">
+            <mat-form-field class="m-r-40">
+              <input matInput placeholder="Nombre" name="nombre" [(ngModel)]="entrenador.nombre" (keyup)="filterValue('nombre', entrenador.nombre)" maxlength="7">
+            </mat-form-field>
+
+            <mat-form-field class="m-r-40">
+              <input matInput placeholder="Apellidos" name="apellidos" [(ngModel)]="entrenador.apellidos" (keyup)="filterValue('apellidos', entrenador.apellidos)" maxlength="7">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="m-r-40">
+              <mat-label>Zona</mat-label>
+              <mat-select name="zona" [(ngModel)]="zona" (selectionChange)="filterValue('zona', zona)">
+                @for (zona of zonas; track zona) {
+                  <mat-option [value]="zona._id">
+                    {{zona.nombreZona}}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="m-r-40">
+              <mat-label>Club</mat-label>
+              <mat-select name="club" [(ngModel)]="club" (selectionChange)="filterValue('club', club)">
+                @for (club of clubs; track club) {
+                  <mat-option [value]="club._id">
+                    {{club.nombre}}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="m-r-40">
+              <mat-label>Estado deportivo</mat-label>
+              <mat-select name="estadoDeportivo" [(ngModel)]="estadoDeportivo" (selectionChange)="filterValue('estadoDeportivo', estadoDeportivo)">
+                <mat-option value="Sin equipo">
+                  Sin equipo
+                </mat-option>
+                <mat-option value="En activo">
+                  En activo
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <button type="reset" (click)="cleanFilters()" class="btn btn-secondary"><i class="fa fa-refresh"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (cargando) {
+  <div class="row animated fadeIn fast">
     <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <form method="post">
-                    <!-- <input type="text" class="form-control" placeholder="Buscar entrenador..." (keyup)="buscar(txtTermino.value)" #txtTermino> -->
-                    <h3>Búsqueda de entrenadores</h3>
-                    <div class="text-center">
-                        <mat-form-field class="m-r-40">
-                            <input matInput placeholder="Nombre" name="nombre" [(ngModel)]="entrenador.nombre" (keyup)="filterValue('nombre', entrenador.nombre)" maxlength="7">
-                        </mat-form-field>
+      <div class="alert alert-info text-center">
+        <h4 class="alert-headi">Cargando</h4>
+        <i class="fa fa-spin fa-refresh fa-2x"></i>
+        <p class="mb-0">Por favor espere</p>
+      </div>
+    </div>
+  </div>
+}
 
-                        <mat-form-field class="m-r-40">
-                            <input matInput placeholder="Apellidos" name="apellidos" [(ngModel)]="entrenador.apellidos" (keyup)="filterValue('apellidos', entrenador.apellidos)" maxlength="7">
-                        </mat-form-field>
-
-                        <mat-form-field appearance="fill" class="m-r-40">
-                            <mat-label>Zona</mat-label>
-                            <mat-select name="zona" [(ngModel)]="zona" (selectionChange)="filterValue('zona', zona)">
-                                <mat-option *ngFor="let zona of zonas" [value]="zona._id">
-                                    {{zona.nombreZona}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-
-                        <mat-form-field appearance="fill" class="m-r-40">
-                            <mat-label>Club</mat-label>
-                            <mat-select name="club" [(ngModel)]="club" (selectionChange)="filterValue('club', club)">
-                                <mat-option *ngFor="let club of clubs" [value]="club._id">
-                                    {{club.nombre}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-
-                        <mat-form-field appearance="fill" class="m-r-40">
-                            <mat-label>Estado deportivo</mat-label>
-                            <mat-select name="estadoDeportivo" [(ngModel)]="estadoDeportivo" (selectionChange)="filterValue('estadoDeportivo', estadoDeportivo)">
-                                <mat-option value="Sin equipo">
-                                    Sin equipo
-                                </mat-option>
-                                <mat-option value="En activo">
-                                    En activo
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-
-                        <button type="reset" (click)="cleanFilters()" class="btn btn-secondary"><i class="fa fa-refresh"></i></button>
-                    </div>
-                </form>
+@if (!cargando) {
+  <div class="row animated fadeIn fast">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title">Entrenadores@if (usuarioService.usuario.role === 'ADMIN_ROLE') {
+            <button data-toggle="modal" data-target=".crear-entrenador-modal" class="btn btn-themecolor float-right"><i class="fa fa-plus "></i> Crear entrenador</button>
+          }</h3>
+          <h4 class="card-subtitle">Entrenadores registrados en la aplicación: <span class="label label-rounded label-themecolor">{{totalEntrenadores}}</span></h4>
+          @if (entrenadores.length > 0) {
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th class="w100">Avatar</th>
+                    <th>Email</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th class="w100">Estado</th>
+                    <th class="w100">Auth</th>
+                    <th class="text-nowrap w100">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (entrenador of entrenadoresTemp | paginate: {itemsPerPage: 5, currentPage: p }; track entrenador) {
+                    <tr>
+                      <td class="text-center">
+                        @if (usuarioService.usuario.role === 'ADMIN_ROLE') {
+                          <img [src]="entrenador.imageUrl" alt="Avatar de usuario" class="avatar" (click)="abrirModal(entrenador)">
+                        }
+                        @if (usuarioService.usuario.role !== 'ADMIN_ROLE') {
+                          <img [src]="entrenador.imageUrl" alt="Avatar de usuario" class="avatar">
+                        }
+                      </td>
+                      <td>{{entrenador.email}}</td>
+                      <td>{{entrenador.nombre}}</td>
+                      <td>{{entrenador.apellidos}}</td>
+                      <td>{{entrenador.estado === true ? 'Activo' : 'Inactivo'}}</td>
+                      <td>
+                        @if (entrenador.google) {
+                          <span class="label label-danger">Google</span>
+                        }
+                        @if (!entrenador.google) {
+                          <span class="label label-info">Email</span>
+                        }
+                      </td>
+                      <td class="text-nowrap text-center">
+                        <a [routerLink]="['/dashboard', 'entrenador', entrenador.id]" data-toggle="tooltip" data-original-title="Ver"> <i class="fa fa-search text-inverse m-r-10"></i> </a>
+                        @if (usuarioService.usuario.role === 'ADMIN_ROLE') {
+                          <a data-toggle="tooltip" data-original-title="Eliminar" (click)="eliminarEntrenador(entrenador)">
+                            <i class="fa fa-close text-danger"></i>
+                          </a>
+                        }
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="row animated fadeIn fast" *ngIf="cargando">
-    <div class="col-12">
-
-        <div class="alert alert-info text-center">
-            <h4 class="alert-headi">Cargando</h4>
-            <i class="fa fa-spin fa-refresh fa-2x"></i>
-            <p class="mb-0">Por favor espere</p>
-        </div>
-
-    </div>
-</div>
-
-<div class="row animated fadeIn fast" *ngIf="!cargando">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="card-title">Entrenadores<button *ngIf="usuarioService.usuario.role === 'ADMIN_ROLE'" data-toggle="modal" data-target=".crear-entrenador-modal" class="btn btn-themecolor float-right"><i class="fa fa-plus "></i> Crear entrenador</button></h3>
-                <h4 class="card-subtitle">Entrenadores registrados en la aplicación: <span class="label label-rounded label-themecolor">{{totalEntrenadores}}</span></h4>
-                <div *ngIf="entrenadores.length > 0" class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="w100">Avatar</th>
-                                <th>Email</th>
-                                <th>Nombre</th>
-                                <th>Apellidos</th>
-                                <th class="w100">Estado</th>
-                                <th class="w100">Auth</th>
-                                <th class="text-nowrap w100">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let entrenador of entrenadoresTemp | paginate: {itemsPerPage: 5, currentPage: p }">
-                                <td class="text-center">
-                                    <img *ngIf="usuarioService.usuario.role === 'ADMIN_ROLE'" [src]="entrenador.imageUrl" alt="Avatar de usuario" class="avatar" (click)="abrirModal(entrenador)">
-                                    <img *ngIf="usuarioService.usuario.role !== 'ADMIN_ROLE'" [src]="entrenador.imageUrl" alt="Avatar de usuario" class="avatar">
-                                </td>
-                                <td>{{entrenador.email}}</td>
-                                <td>{{entrenador.nombre}}</td>
-                                <td>{{entrenador.apellidos}}</td>
-                                <td>{{entrenador.estado === true ? 'Activo' : 'Inactivo'}}</td>
-                                <td>
-                                    <span *ngIf="entrenador.google" class="label label-danger">Google</span>
-                                    <span *ngIf="!entrenador.google" class="label label-info">Email</span>
-                                </td>
-                                <td class="text-nowrap text-center">
-                                    <a [routerLink]="['/dashboard', 'entrenador', entrenador.id]" data-toggle="tooltip" data-original-title="Ver"> <i class="fa fa-search text-inverse m-r-10"></i> </a>
-                                    <a *ngIf="usuarioService.usuario.role === 'ADMIN_ROLE'" data-toggle="tooltip" data-original-title="Eliminar" (click)="eliminarEntrenador(entrenador)">
-                                        <i class="fa fa-close text-danger"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div *ngIf="entrenadores.length === 0" class="row">
-                    <div class="col-12">
-                        <div class="alert alert-info text-center">No existen entrenadores registrados. </div>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <!-- <button *ngIf="!primeraPagina" (click)="cambiarPagina(-5)" class="btn btn-themecolor">Anteriores</button> &nbsp;
-                    <button *ngIf="!ultimaPagina" (click)="cambiarPagina(5)" class="btn btn-themecolor float-right">Siguientes</button> -->
-                    <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-                </div>
+          }
+          @if (entrenadores.length === 0) {
+            <div class="row">
+              <div class="col-12">
+                <div class="alert alert-info text-center">No existen entrenadores registrados. </div>
+              </div>
             </div>
+          }
+          <div class="text-center">
+            <!-- <button *ngIf="!primeraPagina" (click)="cambiarPagina(-5)" class="btn btn-themecolor">Anteriores</button> &nbsp;
+            <button *ngIf="!ultimaPagina" (click)="cambiarPagina(5)" class="btn btn-themecolor float-right">Siguientes</button> -->
+            <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+}
 
 <div class="modal fade crear-entrenador-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
-                <button id="closeModal" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myLargeModalLabel">Large modal</h4>
+        <button id="closeModal" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+        <form class="form p-t-20">
+          <div class="form-group">
+            <label for="exampleInputuname">Nombre</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-user"></i></div>
+              <input type="text" class="form-control" id="exampleInputuname" placeholder="Nombre">
             </div>
-            <div class="modal-body">
-                <form class="form p-t-20">
-                    <div class="form-group">
-                        <label for="exampleInputuname">Nombre</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-user"></i></div>
-                            <input type="text" class="form-control" id="exampleInputuname" placeholder="Nombre">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="localidad">Localidad</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-user"></i></div>
-                            <input type="text" class="form-control" id="localidad" placeholder="Localidad">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="provincia">Provincia</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-world"></i></div>
-                            <select class="form-control" id="provincia">
-                                <option value="">Seleccione...</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="modalidad">Modalidad</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-user"></i></div>
-                            <input type="text" class="form-control" id="modalidad" placeholder="Modalidad">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="zona">Zona</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-world"></i></div>
-                            <select class="form-control" id="zona">
-                                <option value="">Seleccione...</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-success waves-effect waves-light m-r-10 float-right">
-                        <i class="fa fa-save"></i>
-                        Guardar</button>
-                </form>
+          </div>
+          <div class="form-group">
+            <label for="localidad">Localidad</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-user"></i></div>
+              <input type="text" class="form-control" id="localidad" placeholder="Localidad">
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+          </div>
+          <div class="form-group">
+            <label for="provincia">Provincia</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-world"></i></div>
+              <select class="form-control" id="provincia">
+                <option value="">Seleccione...</option>
+              </select>
             </div>
-        </div>
-        <!-- /.modal-content -->
+          </div>
+          <div class="form-group">
+            <label for="modalidad">Modalidad</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-user"></i></div>
+              <input type="text" class="form-control" id="modalidad" placeholder="Modalidad">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="zona">Zona</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-world"></i></div>
+              <select class="form-control" id="zona">
+                <option value="">Seleccione...</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success waves-effect waves-light m-r-10 float-right">
+            <i class="fa fa-save"></i>
+          Guardar</button>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+      </div>
     </div>
-    <!-- /.modal-dialog -->
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
 </div>
