@@ -14,11 +14,11 @@ import { ZonaService } from '../../../services/zona.service';
 import { ClubService } from '../../../services/club.service';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  selector: 'app-jugadores',
-  templateUrl: './jugadores.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-jugadores',
+    templateUrl: './jugadores.component.html',
+    styles: [],
+    standalone: false
 })
 export class JugadoresComponent implements OnInit, OnDestroy {
 

@@ -15,11 +15,11 @@ import * as _ from 'lodash';
 import { UsuarioService } from '../../../services/usuario.service';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  selector: 'app-clubs',
-  templateUrl: './clubs.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-clubs',
+    templateUrl: './clubs.component.html',
+    styles: [],
+    standalone: false
 })
 export class ClubsComponent implements OnInit {
 

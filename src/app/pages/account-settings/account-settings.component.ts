@@ -2,11 +2,11 @@ import { Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { SettingsService } from '../../services/settings.service';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  selector: 'app-account-settings',
-  templateUrl: './account-settings.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-account-settings',
+    templateUrl: './account-settings.component.html',
+    styles: [],
+    standalone: false
 })
 export class AccountSettingsComponent implements OnInit {
 

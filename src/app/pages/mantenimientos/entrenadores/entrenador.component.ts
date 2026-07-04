@@ -5,11 +5,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  selector: 'app-entrenador',
-  templateUrl: './entrenador.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-entrenador',
+    templateUrl: './entrenador.component.html',
+    styles: [],
+    standalone: false
 })
 export class EntrenadorComponent implements OnInit {
 

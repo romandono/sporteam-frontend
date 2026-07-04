@@ -6,11 +6,11 @@ import { Usuario } from '../../models/usuarios/usuario.model';
 declare function customInitFunctions(): any;
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styles: [],
+    standalone: false
 })
 export class SidebarComponent implements OnInit {
 

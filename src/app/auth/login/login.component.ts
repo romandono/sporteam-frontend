@@ -9,10 +9,11 @@ declare function customInitFunctions(): any;
 declare const gapi: any;
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
+    standalone: false
 })
 export class LoginComponent implements OnInit {
 

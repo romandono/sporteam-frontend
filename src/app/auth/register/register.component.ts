@@ -10,10 +10,11 @@ import { JugadorService } from '../../services/jugador.service';
 import { EntrenadorService } from '../../services/entrenador.service';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+    changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.css'],
+    standalone: false
 })
 export class RegisterComponent {
 

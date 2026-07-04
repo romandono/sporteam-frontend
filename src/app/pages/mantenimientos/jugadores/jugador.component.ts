@@ -8,11 +8,11 @@ import { Location } from '@angular/common';
 import dayjs from 'dayjs';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  selector: 'app-jugador',
-  templateUrl: './jugador.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-jugador',
+    templateUrl: './jugador.component.html',
+    styles: [],
+    standalone: false
 })
 export class JugadorComponent implements OnInit {
 

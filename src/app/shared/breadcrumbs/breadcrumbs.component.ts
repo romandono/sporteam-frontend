@@ -4,11 +4,11 @@ import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  selector: 'app-breadcrumbs',
-  templateUrl: './breadcrumbs.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-breadcrumbs',
+    templateUrl: './breadcrumbs.component.html',
+    styles: [],
+    standalone: false
 })
 export class BreadcrumbsComponent implements OnDestroy{
 

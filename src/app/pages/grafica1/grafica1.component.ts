@@ -4,11 +4,11 @@ import { Chart, ChartConfiguration, ChartType, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  selector: 'app-grafica1',
-  templateUrl: './grafica1.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-grafica1',
+    templateUrl: './grafica1.component.html',
+    styles: [],
+    standalone: false
 })
 export class Grafica1Component {
 

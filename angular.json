@@ -76,21 +76,21 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "sporteam-frontend:build"
+                      "buildTarget": "sporteam-frontend:build"
                     },
                     "configurations": {
                         "production": {
-                            "browserTarget": "sporteam-frontend:build:production"
+                          "buildTarget": "sporteam-frontend:build:production"
                         },
                         "local": {
-                            "browserTarget": "sporteam-frontend:build:local"
+                          "buildTarget": "sporteam-frontend:build:local"
                         }
                     }
                 },
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "sporteam-frontend:build"
+                      "buildTarget": "sporteam-frontend:build"
                     }
                 },
                 "test": {

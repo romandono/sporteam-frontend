@@ -5,10 +5,11 @@ import { Usuario } from '../../models/usuarios/usuario.model';
 declare function customInitFunctions(): any;
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+    changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.css'],
+    standalone: false
 })
 export class HeaderComponent {
 

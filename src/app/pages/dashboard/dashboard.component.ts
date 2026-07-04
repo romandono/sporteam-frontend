@@ -3,11 +3,11 @@ import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../models/usuarios/usuario.model';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styles: [],
+    standalone: false
 })
 export class DashboardComponent implements OnInit {
 

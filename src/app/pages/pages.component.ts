@@ -2,11 +2,11 @@ import { Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { SettingsService } from '../services/settings.service';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  selector: 'app-pages',
-  templateUrl: './pages.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-pages',
+    templateUrl: './pages.component.html',
+    styles: [],
+    standalone: false
 })
 export class PagesComponent implements OnInit {
 

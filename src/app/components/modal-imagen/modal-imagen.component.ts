@@ -4,11 +4,11 @@ import { FileUploadService } from '../../services/file-upload.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  selector: 'app-modal-imagen',
-  templateUrl: './modal-imagen.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-modal-imagen',
+    templateUrl: './modal-imagen.component.html',
+    styles: [],
+    standalone: false
 })
 export class ModalImagenComponent implements OnInit {
   

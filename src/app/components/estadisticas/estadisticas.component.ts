@@ -3,10 +3,11 @@ import { EstadisticaService } from '../../services/estadistica.service';
 import { Estadistica } from '../../models/estadistica.model';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  selector: 'app-estadisticas',
-  templateUrl: './estadisticas.component.html',
-  styleUrls: ['./estadisticas.component.css']
+    changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-estadisticas',
+    templateUrl: './estadisticas.component.html',
+    styleUrls: ['./estadisticas.component.css'],
+    standalone: false
 })
 export class EstadisticasComponent implements OnInit {
 

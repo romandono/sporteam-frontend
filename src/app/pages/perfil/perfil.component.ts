@@ -16,11 +16,11 @@ import { Entrenador } from '../../models/usuarios/entrenador.model';
 import dayjs from 'dayjs';
 
 @Component({
-  changeDetection: ChangeDetectionStrategy.Default,
-  selector: 'app-perfil',
-  templateUrl: './perfil.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'app-perfil',
+    templateUrl: './perfil.component.html',
+    styles: [],
+    standalone: false
 })
 export class PerfilComponent implements OnInit {
 
