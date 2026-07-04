@@ -135,8 +135,8 @@
             }
         }
     },
-    "defaultProject": "sporteam-frontend",
     "cli": {
-        "analytics": "94527500-2eb2-43fa-9f0e-bb667e358862"
+        "analytics": "94527500-2eb2-43fa-9f0e-bb667e358862",
+        "packageManager": "npm"
     }
 }
