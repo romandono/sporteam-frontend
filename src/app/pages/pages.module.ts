@@ -8,7 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../components/components.module';
-import { NgChartsModule } from 'ng2-charts';
+import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { JugadoresComponent } from './mantenimientos/jugadores/jugadores.component';
@@ -54,7 +54,7 @@ registerLocaleData(localeEs);
     ReactiveFormsModule,
     SharedModule,
     RouterModule,
-    NgChartsModule,
+    BaseChartDirective,
     ComponentsModule,
     PipesModule,
     MatSelectModule,
@@ -67,7 +67,8 @@ registerLocaleData(localeEs);
     NgxPaginationModule
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: 'es-ES'}
+    { provide: LOCALE_ID, useValue: 'es-ES' },
+    provideCharts(withDefaultRegisterables())
   ]
 })
 export class PagesModule { }
