@@ -25,8 +25,6 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import localeEs from '@angular/common/locales/es';
 registerLocaleData(localeEs);
 
@@ -66,12 +64,10 @@ registerLocaleData(localeEs);
     MatTabsModule,
     MatNativeDateModule,
     MatIconModule,
-    NgxPaginationModule,
-    MatMomentDateModule
+    NgxPaginationModule
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: 'es-ES'},
-    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
+    {provide: LOCALE_ID, useValue: 'es-ES'}
   ]
 })
 export class PagesModule { }

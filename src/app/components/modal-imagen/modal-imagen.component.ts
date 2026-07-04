@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { ModalImagenService } from '../../services/modal-imagen.service';
 import { FileUploadService } from '../../services/file-upload.service';
 import Swal from 'sweetalert2';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-modal-imagen',
   templateUrl: './modal-imagen.component.html',
   styles: [

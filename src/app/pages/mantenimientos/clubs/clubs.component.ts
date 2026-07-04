@@ -1,5 +1,5 @@
 import { Zona } from './../../../models/zona.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { Club } from '../../../models/club.model';
 import { Subscription } from 'rxjs';
 import { ClubService } from '../../../services/club.service';
@@ -15,6 +15,7 @@ import * as _ from 'lodash';
 import { UsuarioService } from '../../../services/usuario.service';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-clubs',
   templateUrl: './clubs.component.html',
   styles: [

@@ -1,9 +1,10 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.Default,
   selector: 'app-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
   styles: [
