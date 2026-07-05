@@ -97,14 +97,10 @@ export class UsuarioService {
       }
     }).pipe(
       map( (resp: any) => {
-        console.log('validarToken response:', resp);
-        console.log('validarToken usuario:', resp.usuario);
         const {
-          email, google, nombre, apellidos, role, image = '', _id, estado, estadoDeportivo, zona, usertype, club
+          email, google, nombre, apellidos, role, image = '', _id, id, estado, estadoDeportivo, zona, usertype, club
         } = resp.usuario || {};
-        console.log('_id extraído:', _id);
-        this.usuario = new Usuario(nombre, apellidos, email, image, google, role, _id, '', estado, estadoDeportivo, zona, usertype, club);
-        console.log('usuario.id después de crear:', this.usuario.id);
+        this.usuario = new Usuario(nombre, apellidos, email, image, google, role, _id || id, '', estado, estadoDeportivo, zona, usertype, club);
         localStorage.setItem('token', resp.token);
         return true;
       }),
