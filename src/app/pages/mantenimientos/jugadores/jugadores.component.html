@@ -154,7 +154,9 @@
                       }
                     </td>
                     <td class="text-nowrap text-center">
-                      <a [routerLink]="['/dashboard', 'jugador', jugador.id]" data-toggle="tooltip" data-original-title="Ver"> <i class="fa fa-search text-inverse m-r-10"></i> </a>
+                      @if (jugador.id) {
+                        <a [routerLink]="['/dashboard', 'jugador', jugador.id]" data-toggle="tooltip" data-original-title="Ver"> <i class="fa fa-search text-inverse m-r-10"></i> </a>
+                      }
                       @if (usuarioService.usuario.role === 'ADMIN_ROLE') {
                         <a data-toggle="tooltip" data-original-title="Eliminar" (click)="eliminarJugador(jugador)">
                           <i class="fa fa-close text-danger"></i>

@@ -34,11 +34,19 @@ export class EntrenadorComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({id}) => {
+      if (!id) {
+        console.error('ID de entrenador no proporcionado');
+        return;
+      }
       this.cargarEntrenador(id);
     });
   }
 
   cargarEntrenador(id: string) {
+    if (!id) {
+      console.error('cargarEntrenador: ID inválido');
+      return;
+    }
     this.entrenadorService.cargarEntrenador(id)
         .subscribe(entrenador => {
           this.entrenador = entrenador;

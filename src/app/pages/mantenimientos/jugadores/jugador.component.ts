@@ -39,12 +39,20 @@ export class JugadorComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({id}) => {
+      if (!id) {
+        console.error('ID de jugador no proporcionado');
+        return;
+      }
       this.cargarJugador(id);
       this.id = id;
     });
   }
 
   cargarJugador(id: string) {
+    if (!id) {
+      console.error('cargarJugador: ID inválido');
+      return;
+    }
     this.jugadorService.cargarJugador(id)
         .subscribe(jugador => {
           console.log(jugador);
