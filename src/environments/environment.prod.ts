@@ -2,5 +2,6 @@
 
 export const environment = {
   production: true,
-  base_url: 'https://sporteam-dev.herokuapp.com/api'
+  // ⚠️ Placeholder — replace with real Render backend URL before prod cutover
+  base_url: '__RENDER_API_URL__'
 };

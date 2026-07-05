@@ -11,6 +11,9 @@
     "e2e": "ng e2e"
   },
   "private": true,
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "dependencies": {
     "@angular/animations": "^22.0.5",
     "@angular/cdk": "^22.0.3",
