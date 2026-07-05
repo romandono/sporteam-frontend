@@ -1,13 +1,14 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-breadcrumbs',
-  templateUrl: './breadcrumbs.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Eager,
+    selector: 'app-breadcrumbs',
+    templateUrl: './breadcrumbs.component.html',
+    styles: [],
+    standalone: false
 })
 export class BreadcrumbsComponent implements OnDestroy{
 

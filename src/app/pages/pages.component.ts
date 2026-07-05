@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { SettingsService } from '../services/settings.service';
 
 @Component({
-  selector: 'app-pages',
-  templateUrl: './pages.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Eager,
+    selector: 'app-pages',
+    templateUrl: './pages.component.html',
+    styles: [],
+    standalone: false
 })
 export class PagesComponent implements OnInit {
 

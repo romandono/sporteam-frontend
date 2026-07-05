@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../models/usuarios/usuario.model';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Eager,
+    selector: 'app-dashboard',
+    templateUrl: './dashboard.component.html',
+    styles: [],
+    standalone: false
 })
 export class DashboardComponent implements OnInit {
 

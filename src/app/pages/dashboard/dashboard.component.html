@@ -1,74 +1,94 @@
 <div class="row">
-    <div class="col-12">
-        <div class="row">
-            <div class="col-md-6 col-lg-6 col-xlg-4" *ngFor="let usuario of usuarios">
-                <div *ngIf="usuario.role === 'JUGADOR_ROLE'" class="card card-body card-tablero" [routerLink]="['/dashboard', 'jugador', usuario.id]">
-                    <div class="row">
+  <div class="col-12">
+    <div class="row">
+      @for (usuario of usuarios; track usuario) {
+        <div class="col-md-6 col-lg-6 col-xlg-4">
+          @if (usuario.role === 'JUGADOR_ROLE') {
+            <div class="card card-body card-tablero" [routerLink]="['/dashboard', 'jugador', usuario.id]">
+              <div class="row">
+                <div class="col-md-4 col-lg-3 text-center">
+                  <img [src]="usuario.imageUrl" alt="user" class="img-circle img-responsive">
+                </div>
+                <div class="col-md-8 col-lg-9">
+                  <h3 class="box-title m-b-0">{{usuario.nombre}} {{usuario.apellidos}}</h3> <small>{{usuario.usertype}}</small>
+                  <address>
+                    {{usuario.email}}
+                    <br>
+                      <br>
+                        @if (usuario.zona) {
+                          <span>{{usuario.zona | zona}}</span>
+                        }
+                        <br>
+                          <span>{{usuario.estadoDeportivo}}</span>
+                          <br>
+                            @if (usuario.club) {
+                              <span><span class="label label-rounded label-themecolor"><strong>Club:</strong></span> {{usuario.club.nombre}}</span>
+                            }
+                          </address>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                  @if (usuario.role === 'ENTRENADOR_ROLE') {
+                    <div class="card card-body card-tablero" [routerLink]="['/dashboard', 'entrenador', usuario.id]">
+                      <div class="row">
                         <div class="col-md-4 col-lg-3 text-center">
-                            <img [src]="usuario.imageUrl" alt="user" class="img-circle img-responsive">
+                          <img [src]="usuario.imageUrl" alt="user" class="img-circle img-responsive">
                         </div>
                         <div class="col-md-8 col-lg-9">
-                            <h3 class="box-title m-b-0">{{usuario.nombre}} {{usuario.apellidos}}</h3> <small>{{usuario.usertype}}</small>
-                            <address>
-                                {{usuario.email}}
+                          <h3 class="box-title m-b-0">{{usuario.nombre}} {{usuario.apellidos}}</h3> <small>{{usuario.usertype}}</small>
+                          <address>
+                            {{usuario.email}}
+                            <br>
+                              <br>
+                                @if (usuario.zona) {
+                                  <span>{{usuario.zona}}</span>
+                                }
                                 <br>
-                                <br>
-                                <span *ngIf="usuario.zona">{{usuario.zona | zona}}</span>
-                                <br>
-                                <span>{{usuario.estadoDeportivo}}</span>
-                                <br>
-                                <span *ngIf="usuario.club"><span class="label label-rounded label-themecolor"><strong>Club:</strong></span> {{usuario.club.nombre}}</span>
-                            </address>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="usuario.role === 'ENTRENADOR_ROLE'" class="card card-body card-tablero" [routerLink]="['/dashboard', 'entrenador', usuario.id]">
-                    <div class="row">
-                        <div class="col-md-4 col-lg-3 text-center">
-                            <img [src]="usuario.imageUrl" alt="user" class="img-circle img-responsive">
-                        </div>
-                        <div class="col-md-8 col-lg-9">
-                            <h3 class="box-title m-b-0">{{usuario.nombre}} {{usuario.apellidos}}</h3> <small>{{usuario.usertype}}</small>
-                            <address>
-                                {{usuario.email}}
-                                <br>
-                                <br>
-                                <span *ngIf="usuario.zona">{{usuario.zona}}</span>
-                                <br>
-                                <span>{{usuario.estadoDeportivo}}</span>
-                                <br>
-                                <span *ngIf="usuario.club"><span class="label label-rounded label-themecolor"><strong>Club:</strong></span> {{usuario.club.nombre}}</span>
-                            </address>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="usuario.role === 'USER_ROLE'" class="card card-body card-tablero">
-                    <div class="row">
-                        <div class="col-md-4 col-lg-3 text-center">
-                            <img [src]="usuario.imageUrl" alt="user" class="img-circle img-responsive">
-                        </div>
-                        <div class="col-md-8 col-lg-9">
-                            <h3 class="box-title m-b-0">{{usuario.nombre}} {{usuario.apellidos}}</h3> <small>{{usuario.usertype}}</small>
-                            <address>
-                                {{usuario.email}}
-                                <br>
-                                <br>
-                                <span *ngIf="usuario.zona">{{usuario.zona}}</span>
-                                <br>
-                                <span>{{usuario.estadoDeportivo}}</span>
-                                <br>
-                                <span *ngIf="usuario.club"><span class="label label-rounded label-themecolor"><strong>Club:</strong></span> {{usuario.club.nombre}}</span>
-                            </address>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 text-center">
-                <button (click)="cargarMas()" type="button" class="btn btn-secondary">Cargar más <i class="fa fa-chevron-circle-down"></i></button>
-            </div>
-        </div>
-    </div>
+                                  <span>{{usuario.estadoDeportivo}}</span>
+                                  <br>
+                                    @if (usuario.club) {
+                                      <span><span class="label label-rounded label-themecolor"><strong>Club:</strong></span> {{usuario.club.nombre}}</span>
+                                    }
+                                  </address>
+                                </div>
+                              </div>
+                            </div>
+                          }
+                          @if (usuario.role === 'USER_ROLE') {
+                            <div class="card card-body card-tablero">
+                              <div class="row">
+                                <div class="col-md-4 col-lg-3 text-center">
+                                  <img [src]="usuario.imageUrl" alt="user" class="img-circle img-responsive">
+                                </div>
+                                <div class="col-md-8 col-lg-9">
+                                  <h3 class="box-title m-b-0">{{usuario.nombre}} {{usuario.apellidos}}</h3> <small>{{usuario.usertype}}</small>
+                                  <address>
+                                    {{usuario.email}}
+                                    <br>
+                                      <br>
+                                        @if (usuario.zona) {
+                                          <span>{{usuario.zona}}</span>
+                                        }
+                                        <br>
+                                          <span>{{usuario.estadoDeportivo}}</span>
+                                          <br>
+                                            @if (usuario.club) {
+                                              <span><span class="label label-rounded label-themecolor"><strong>Club:</strong></span> {{usuario.club.nombre}}</span>
+                                            }
+                                          </address>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  }
+                                </div>
+                              }
+                            </div>
+                            <div class="row">
+                              <div class="col-12 text-center">
+                                <button (click)="cargarMas()" type="button" class="btn btn-secondary">Cargar más <i class="fa fa-chevron-circle-down"></i></button>
+                              </div>
+                            </div>
+                          </div>
 
-</div>
+                        </div>

@@ -1,5 +1,5 @@
 import { Jugador } from './../../models/usuarios/jugador.model';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
@@ -10,9 +10,11 @@ import { JugadorService } from '../../services/jugador.service';
 import { EntrenadorService } from '../../services/entrenador.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+    changeDetection: ChangeDetectionStrategy.Eager,
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.css'],
+    standalone: false
 })
 export class RegisterComponent {
 

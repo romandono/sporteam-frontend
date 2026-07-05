@@ -1,10 +1,11 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component} from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
-  selector: 'app-progress',
-  templateUrl: './progress.component.html',
-  styleUrls: ['./progress.component.css']
+    changeDetection: ChangeDetectionStrategy.Eager,
+    selector: 'app-progress',
+    templateUrl: './progress.component.html',
+    styleUrls: ['./progress.component.css'],
+    standalone: false
 })
 export class ProgressComponent{
 

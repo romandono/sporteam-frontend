@@ -1,4 +1,4 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
@@ -9,9 +9,11 @@ declare function customInitFunctions(): any;
 declare const gapi: any;
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    changeDetection: ChangeDetectionStrategy.Eager,
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
+    standalone: false
 })
 export class LoginComponent implements OnInit {
 
@@ -51,12 +53,14 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.usuarioService.login(this.loginForm.value)
+    this.usuarioService.login(this.loginForm.getRawValue() as LoginForm)
         .subscribe(resp => {
           
-          if(this.loginForm.get('remember')!.value) {
-            localStorage.setItem('email', this.loginForm.get('email')!.value);
-            localStorage.setItem('remember', this.loginForm.get('remember')!.value);
+          const email = this.loginForm.get('email')!.value ?? '';
+          const remember = this.loginForm.get('remember')!.value ?? false;
+          if(remember) {
+            localStorage.setItem('email', email as string);
+            localStorage.setItem('remember', String(remember));
           } else {
             localStorage.removeItem('email');
             localStorage.removeItem('remember');

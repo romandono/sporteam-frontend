@@ -2,94 +2,106 @@
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
 <section id="wrapper" class="login-register" style="background-image:url(./assets/images/background/login-register.jpg);">
-    <div class="col-sm-6 mx-auto card rounded">
-        <div class="card card-body">
-            <form class="form-horizontal form-material" id="loginform" autocomplete="off" [formGroup]="registerForm" (ngSubmit)="crearUsuario()">
-                <a href="javascript:void(0)" class="text-center db"><img class="m-t-20" src="../assets/images/logo-text.png" alt="Home" /></a>
-                <h3 class="box-title m-t-40 m-b-0">Regístrate ahora</h3><small>Crea tu cuenta y disfruta</small>
-                <div class="row mt-4">
-                    <div class="col-lg-6">
-                        <mat-form-field class="example-form-field w-100">
-                            <mat-label>Nombre</mat-label>
-                            <input matInput type="text" formControlName="nombre">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-lg-6">
-                        <mat-form-field class="example-form-field w-100">
-                            <mat-label>Apellidos</mat-label>
-                            <input matInput type="text" formControlName="apellidos">
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-lg-6">
-                        <mat-form-field class="example-form-field w-100">
-                            <mat-label>Email</mat-label>
-                            <input matInput type="text" formControlName="email">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-lg-6">
-                        <mat-form-field class="example-form-field w-100">
-                            <mat-label>Contraseña</mat-label>
-                            <input matInput type="text" formControlName="password">
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-lg-6">
-                        <mat-form-field class="example-form-field w-100">
-                            <mat-label>Confirme contraseña</mat-label>
-                            <input matInput type="text" formControlName="password2">
-                        </mat-form-field>
-                    </div>
-                    <div class="col-lg-6">
-                        <mat-form-field appearance="fill" class="w-100">
-                            <mat-label>Seleccione sus zonas</mat-label>
-                            <mat-select formControlName="zona" multiple [compareWith]="compareWith">
-                                <mat-option *ngFor="let zona of zonas" [value]="zona">
-                                    {{zona.nombreZona}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row mt-4">
-                    <div class="col-sm-12 m-b-10"><label for="role">Seleccione el rol de usuario que desee</label></div>
-                    <div class="col-lg-12 text-center">
-                        <mat-radio-group id="role" aria-labelledby="role" formControlName="role">
-                            <mat-radio-button class="m-r-20" value="JUGADOR_ROLE">Jugador</mat-radio-button>
-                            <mat-radio-button class="m-r-20" value="ENTRENADOR_ROLE">Entrenador</mat-radio-button>
-                            <mat-radio-button class="m-r-20" value="USER_ROLE">Usuario</mat-radio-button>
-                            <mat-radio-button class="m-r-20" value="PREPARADOR_ROLE">Preparador Físico</mat-radio-button>
-                            <mat-radio-button class="m-r-20" value="PSICOLOGO_ROLE">Psicólogo</mat-radio-button>
-                            <mat-radio-button value="NUTRICIONISTA_ROLE">Nutricionista</mat-radio-button>
-                        </mat-radio-group>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col text-danger">
-
-                        <p *ngIf="campoNoValido('nombre')">* El nombre es obligatorio</p>
-                        <p *ngIf="campoNoValido('email')">* El email es obligatorio y tiene que ser válido</p>
-                        <p *ngIf="campoNoValido('apellidos')">* Los apellidos son obligatorios</p>
-                        <p *ngIf="passwordNoValidas()">* Las contraseñas deben de ser iguales</p>
-                        <p *ngIf="campoNoValido('role')">* Debe seleccionar un rol de usuario</p>
-
-                    </div>
-                </div>
-                <div class="form-group text-center m-t-30">
-                    <div class="col-xs-6">
-                        <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light w-50" type="submit">Registrarse</button>
-                    </div>
-                </div>
-                <div class="form-group m-b-0">
-                    <div class="col-sm-12">
-                        <p class="text-center">¿Ya tienes una cuenta? <a (click)="toLogin()" class="text-info m-l-5"><b>Accede</b></a></p>
-                    </div>
-                </div>
-            </form>
+  <div class="col-sm-6 mx-auto card rounded">
+    <div class="card card-body">
+      <form class="form-horizontal form-material" id="loginform" autocomplete="off" [formGroup]="registerForm" (ngSubmit)="crearUsuario()">
+        <a href="javascript:void(0)" class="text-center db"><img class="m-t-20" src="../assets/images/logo-text.png" alt="Home" /></a>
+        <h3 class="box-title m-t-40 m-b-0">Regístrate ahora</h3><small>Crea tu cuenta y disfruta</small>
+        <div class="row mt-4">
+          <div class="col-lg-6">
+            <mat-form-field class="example-form-field w-100">
+              <mat-label>Nombre</mat-label>
+              <input matInput type="text" formControlName="nombre">
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6">
+            <mat-form-field class="example-form-field w-100">
+              <mat-label>Apellidos</mat-label>
+              <input matInput type="text" formControlName="apellidos">
+            </mat-form-field>
+          </div>
         </div>
+        <div class="row mt-4">
+          <div class="col-lg-6">
+            <mat-form-field class="example-form-field w-100">
+              <mat-label>Email</mat-label>
+              <input matInput type="text" formControlName="email">
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6">
+            <mat-form-field class="example-form-field w-100">
+              <mat-label>Contraseña</mat-label>
+              <input matInput type="text" formControlName="password">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-lg-6">
+            <mat-form-field class="example-form-field w-100">
+              <mat-label>Confirme contraseña</mat-label>
+              <input matInput type="text" formControlName="password2">
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6">
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-label>Seleccione sus zonas</mat-label>
+              <mat-select formControlName="zona" multiple [compareWith]="compareWith">
+                @for (zona of zonas; track zona) {
+                  <mat-option [value]="zona">
+                    {{zona.nombreZona}}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-sm-12 m-b-10"><label for="role">Seleccione el rol de usuario que desee</label></div>
+          <div class="col-lg-12 text-center">
+            <mat-radio-group id="role" aria-labelledby="role" formControlName="role">
+              <mat-radio-button class="m-r-20" value="JUGADOR_ROLE">Jugador</mat-radio-button>
+              <mat-radio-button class="m-r-20" value="ENTRENADOR_ROLE">Entrenador</mat-radio-button>
+              <mat-radio-button class="m-r-20" value="USER_ROLE">Usuario</mat-radio-button>
+              <mat-radio-button class="m-r-20" value="PREPARADOR_ROLE">Preparador Físico</mat-radio-button>
+              <mat-radio-button class="m-r-20" value="PSICOLOGO_ROLE">Psicólogo</mat-radio-button>
+              <mat-radio-button value="NUTRICIONISTA_ROLE">Nutricionista</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-danger">
+
+            @if (campoNoValido('nombre')) {
+              <p>* El nombre es obligatorio</p>
+            }
+            @if (campoNoValido('email')) {
+              <p>* El email es obligatorio y tiene que ser válido</p>
+            }
+            @if (campoNoValido('apellidos')) {
+              <p>* Los apellidos son obligatorios</p>
+            }
+            @if (passwordNoValidas()) {
+              <p>* Las contraseñas deben de ser iguales</p>
+            }
+            @if (campoNoValido('role')) {
+              <p>* Debe seleccionar un rol de usuario</p>
+            }
+
+          </div>
+        </div>
+        <div class="form-group text-center m-t-30">
+          <div class="col-xs-6">
+            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light w-50" type="submit">Registrarse</button>
+          </div>
+        </div>
+        <div class="form-group m-b-0">
+          <div class="col-sm-12">
+            <p class="text-center">¿Ya tienes una cuenta? <a (click)="toLogin()" class="text-info m-l-5"><b>Accede</b></a></p>
+          </div>
+        </div>
+      </form>
     </div>
+  </div>
 </section>
 <!-- ============================================================== -->
 <!-- End Wrapper -->

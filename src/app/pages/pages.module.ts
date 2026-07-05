@@ -8,7 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../components/components.module';
-import { ChartsModule } from 'ng2-charts';
+import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { JugadoresComponent } from './mantenimientos/jugadores/jugadores.component';
@@ -25,8 +25,6 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {MatMomentDateModule } from '@angular/material-moment-adapter';
-import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import localeEs from '@angular/common/locales/es';
 registerLocaleData(localeEs);
 
@@ -56,7 +54,7 @@ registerLocaleData(localeEs);
     ReactiveFormsModule,
     SharedModule,
     RouterModule,
-    ChartsModule,
+    BaseChartDirective,
     ComponentsModule,
     PipesModule,
     MatSelectModule,
@@ -66,12 +64,11 @@ registerLocaleData(localeEs);
     MatTabsModule,
     MatNativeDateModule,
     MatIconModule,
-    NgxPaginationModule,
-    MatMomentDateModule
+    NgxPaginationModule
   ],
   providers: [
-    {provide: LOCALE_ID, useValue: 'es-ES'},
-    {provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: {useUtc: true}}
+    { provide: LOCALE_ID, useValue: 'es-ES' },
+    provideCharts(withDefaultRegisterables())
   ]
 })
 export class PagesModule { }

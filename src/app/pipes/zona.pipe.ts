@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Zona } from '../models/zona.model';
 
 @Pipe({
-  name: 'zona'
+    name: 'zona',
+    standalone: false
 })
 export class ZonaPipe implements PipeTransform {
 

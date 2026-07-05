@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
-  selector: 'app-nopagefound',
-  templateUrl: './nopagefound.component.html',
-  styleUrls: ['./nopagefound.component.css']
+    changeDetection: ChangeDetectionStrategy.Eager,
+    selector: 'app-nopagefound',
+    templateUrl: './nopagefound.component.html',
+    styleUrls: ['./nopagefound.component.css'],
+    standalone: false
 })
 export class NopagefoundComponent {
 

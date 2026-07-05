@@ -1,19 +1,18 @@
 import { Zona } from './../../../models/zona.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { Jugador } from '../../../models/usuarios/jugador.model';
 import { JugadorService } from '../../../services/jugador.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import * as _moment from 'moment';
-
-const moment = _moment;
+import dayjs from 'dayjs';
 
 @Component({
-  selector: 'app-jugador',
-  templateUrl: './jugador.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Eager,
+    selector: 'app-jugador',
+    templateUrl: './jugador.component.html',
+    styles: [],
+    standalone: false
 })
 export class JugadorComponent implements OnInit {
 
@@ -55,7 +54,7 @@ export class JugadorComponent implements OnInit {
           this.apellidos = jugador.apellidos;
           this.email = jugador.email;
           this.estadoDeportivo = jugador.estadoDeportivo!;
-          this.fechaNacimiento = moment(jugador.fechaNacimiento!).format('DD/MM/yyyy');
+          this.fechaNacimiento = dayjs(jugador.fechaNacimiento!).format('DD/MM/YYYY');
           this.nombreDeportivo = jugador.nombreDeportivo!;
           this.clubNombre = jugador.club?.nombre!;
           this.zona = jugador.zona!;

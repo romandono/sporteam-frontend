@@ -1,11 +1,12 @@
 import { I18nPluralPipe } from '@angular/common';
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
-  selector: 'app-incrementador',
-  templateUrl: './incrementador.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Eager,
+    selector: 'app-incrementador',
+    templateUrl: './incrementador.component.html',
+    styles: [],
+    standalone: false
 })
 export class IncrementadorComponent implements OnInit {
 

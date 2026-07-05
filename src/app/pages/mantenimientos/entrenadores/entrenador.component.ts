@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { Entrenador } from '../../../models/usuarios/entrenador.model';
 import { EntrenadorService } from '../../../services/entrenador.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-entrenador',
-  templateUrl: './entrenador.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Eager,
+    selector: 'app-entrenador',
+    templateUrl: './entrenador.component.html',
+    styles: [],
+    standalone: false
 })
 export class EntrenadorComponent implements OnInit {
 

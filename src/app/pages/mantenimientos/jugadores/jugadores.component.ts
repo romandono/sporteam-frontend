@@ -1,5 +1,5 @@
 import { Zona } from './../../../models/zona.model';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy} from '@angular/core';
 import { UsuarioService } from '../../../services/usuario.service';
 import { Jugador } from '../../../models/usuarios/jugador.model';
 import Swal from 'sweetalert2';
@@ -14,10 +14,11 @@ import { ZonaService } from '../../../services/zona.service';
 import { ClubService } from '../../../services/club.service';
 
 @Component({
-  selector: 'app-jugadores',
-  templateUrl: './jugadores.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Eager,
+    selector: 'app-jugadores',
+    templateUrl: './jugadores.component.html',
+    styles: [],
+    standalone: false
 })
 export class JugadoresComponent implements OnInit, OnDestroy {
 

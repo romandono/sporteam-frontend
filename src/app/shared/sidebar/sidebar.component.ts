@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { SidebarService } from '../../services/sidebar.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../models/usuarios/usuario.model';
@@ -6,10 +6,11 @@ import { Usuario } from '../../models/usuarios/usuario.model';
 declare function customInitFunctions(): any;
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styles: [
-  ]
+    changeDetection: ChangeDetectionStrategy.Eager,
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styles: [],
+    standalone: false
 })
 export class SidebarComponent implements OnInit {
 

@@ -1,171 +1,189 @@
 <div class="row">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="card-title">Mi perfil de usuario</h3>
-                <h4 class="card-subtitle">Ajustes</h4>
-                <form class="form p-t-20" [formGroup]="perfilForm" (ngSubmit)="actualizarPerfil()">
-                    <mat-tab-group>
-                        <mat-tab label="Datos personales">
-                            <div class="p-20">
-                                <div class="form-group">
-                                    <mat-form-field class="example-form-field w-100">
-                                        <mat-label>Nombre</mat-label>
-                                        <input matInput type="text" formControlName="nombre">
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group">
-                                    <mat-form-field class="example-form-field w-100">
-                                        <mat-label>Apellidos</mat-label>
-                                        <input matInput type="text" formControlName="apellidos">
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group">
-                                    <mat-form-field appearance="fill" class="w-100">
-                                        <mat-label>Zona</mat-label>
-                                        <mat-select formControlName="zona" multiple [compareWith]="compareWith">
-                                            <mat-option *ngFor="let zona of zonas" [value]="zona">
-                                                {{zona.nombreZona}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group">
-                                    <mat-form-field appearance="fill" class="w-100">
-                                        <mat-label>Estado deportivo</mat-label>
-                                        <mat-select formControlName="estadoDeportivo" (selectionChange)="clubVisible()">
-                                            <mat-option *ngFor="let estado of estados" [value]="estado">
-                                                {{estado}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div [style.display]="isVisible ? 'block' : 'none'" class="form-group">
-                                    <mat-form-field appearance="fill" class="w-100">
-                                        <mat-label>Club</mat-label>
-                                        <mat-select formControlName="club" [compareWith]="compareWith">
-                                            <mat-option *ngFor="let club of clubs" [value]="club">
-                                                {{club.nombre}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group">
-                                    <mat-form-field appearance="fill" class="w-100">
-                                        <mat-label>Rol de usuario</mat-label>
-                                        <mat-select formControlName="role">
-                                            <mat-option *ngFor="let rol of roles" [value]="rol.role">
-                                                {{rol.usertype}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                        </mat-tab>
-                        <mat-tab label="Características">
-                            <!-- Formularios de tipo de usuario-->
-                            <div *ngIf="usuario.role === 'JUGADOR_ROLE'" class="p-20">
-                                <div class="form-group">
-                                    <mat-form-field class="example-form-field w-100">
-                                        <mat-label>Nombre deportivo</mat-label>
-                                        <input matInput type="text" formControlName="nombreDeportivo">
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group">
-                                    <mat-form-field appearance="fill" class="w-100">
-                                        <mat-label>Fecha de nacimiento</mat-label>
-                                        <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento">
-                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker></mat-datepicker>
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group">
-                                    <mat-form-field class="example-form-field w-100">
-                                        <mat-label>Lateralidad</mat-label>
-                                        <input matInput type="text" formControlName="lateralidad">
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group">
-                                    <mat-form-field class="example-form-field w-100">
-                                        <mat-label>Demarcación</mat-label>
-                                        <input matInput type="text" formControlName="demarcacion">
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group">
-                                    <mat-form-field class="example-form-field w-100">
-                                        <mat-label>Altura (cm)</mat-label>
-                                        <input matInput type="number" formControlName="altura">
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group">
-                                    <mat-form-field class="example-form-field w-100">
-                                        <mat-label>Peso (kg)</mat-label>
-                                        <input matInput type="number" formControlName="peso">
-                                    </mat-form-field>
-                                </div>
-                            </div>
-
-                            <div *ngIf="usuario.role === 'ENTRENADOR_ROLE'" class="p-20">
-                                <div class="form-group">
-                                    <mat-form-field class="example-form-field w-100">
-                                        <mat-label>Nombre deportivo</mat-label>
-                                        <input matInput type="text" formControlName="nombreDeportivo">
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group">
-                                    <mat-form-field class="example-form-field w-100">
-                                        <mat-label>Titulacion</mat-label>
-                                        <input matInput type="text" formControlName="titulacion">
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group">
-                                    <mat-form-field class="example-form-field w-100">
-                                        <mat-label>Teléfono</mat-label>
-                                        <input matInput type="tel" formControlName="telefono">
-                                    </mat-form-field>
-                                </div>
-                                <div class="form-group">
-                                    <div><label for="entrenadorPorteros">Entrenador de porteros</label></div>
-                                    <mat-radio-group id="entrenadorPorteros" aria-labelledby="entrenadorPorteros">
-                                        <mat-radio-button class="m-r-10" formControlName="entrenadorPorteros" [value]=true>Si</mat-radio-button>
-                                        <mat-radio-button formControlName="entrenadorPorteros" [value]=false>No</mat-radio-button>
-                                    </mat-radio-group>
-                                </div>
-                            </div>
-
-                            <div *ngIf="usuario.role === 'USER_ROLE'">
-                                <div class="alert alert-info">Hazte un perfil de jugador o entrenador para establecer tus características.</div>
-                            </div>
-                        </mat-tab>
-                    </mat-tab-group>
-                    <button type="submit" class="btn btn-success waves-effect waves-light m-r-10 float-right" [disabled]="perfilForm.invalid">
-                        <i class="fa fa-save"></i>
-                        Guardar cambios</button>
-                </form>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="card-title">Avatar</h3>
-                <h4 class="card-subtitle">Imagen de usuario</h4>
-
-                <div class="img-container text-center">
-                    <img *ngIf="!imgTemp" [src]="usuario.imageUrl" class="img-avatar">
-                    <img *ngIf="imgTemp" [src]="imgTemp" class="img-avatar">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">Mi perfil de usuario</h3>
+        <h4 class="card-subtitle">Ajustes</h4>
+        <form class="form p-t-20" [formGroup]="perfilForm" (ngSubmit)="actualizarPerfil()">
+          <mat-tab-group>
+            <mat-tab label="Datos personales">
+              <div class="p-20">
+                <div class="form-group">
+                  <mat-form-field class="example-form-field w-100">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput type="text" formControlName="nombre">
+                  </mat-form-field>
                 </div>
+                <div class="form-group">
+                  <mat-form-field class="example-form-field w-100">
+                    <mat-label>Apellidos</mat-label>
+                    <input matInput type="text" formControlName="apellidos">
+                  </mat-form-field>
+                </div>
+                <div class="form-group">
+                  <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Zona</mat-label>
+                    <mat-select formControlName="zona" multiple [compareWith]="compareWith">
+                      @for (zona of zonas; track zona) {
+                        <mat-option [value]="zona">
+                          {{zona.nombreZona}}
+                        </mat-option>
+                      }
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="form-group">
+                  <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Estado deportivo</mat-label>
+                    <mat-select formControlName="estadoDeportivo" (selectionChange)="clubVisible()">
+                      @for (estado of estados; track estado) {
+                        <mat-option [value]="estado">
+                          {{estado}}
+                        </mat-option>
+                      }
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div [style.display]="isVisible ? 'block' : 'none'" class="form-group">
+                  <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Club</mat-label>
+                    <mat-select formControlName="club" [compareWith]="compareWith">
+                      @for (club of clubs; track club) {
+                        <mat-option [value]="club">
+                          {{club.nombre}}
+                        </mat-option>
+                      }
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="form-group">
+                  <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Rol de usuario</mat-label>
+                    <mat-select formControlName="role">
+                      @for (rol of roles; track rol) {
+                        <mat-option [value]="rol.role">
+                          {{rol.usertype}}
+                        </mat-option>
+                      }
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-tab>
+            <mat-tab label="Características">
+              <!-- Formularios de tipo de usuario-->
+              @if (usuario.role === 'JUGADOR_ROLE') {
+                <div class="p-20">
+                  <div class="form-group">
+                    <mat-form-field class="example-form-field w-100">
+                      <mat-label>Nombre deportivo</mat-label>
+                      <input matInput type="text" formControlName="nombreDeportivo">
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <mat-form-field appearance="fill" class="w-100">
+                      <mat-label>Fecha de nacimiento</mat-label>
+                      <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <mat-form-field class="example-form-field w-100">
+                      <mat-label>Lateralidad</mat-label>
+                      <input matInput type="text" formControlName="lateralidad">
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <mat-form-field class="example-form-field w-100">
+                      <mat-label>Demarcación</mat-label>
+                      <input matInput type="text" formControlName="demarcacion">
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <mat-form-field class="example-form-field w-100">
+                      <mat-label>Altura (cm)</mat-label>
+                      <input matInput type="number" formControlName="altura">
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <mat-form-field class="example-form-field w-100">
+                      <mat-label>Peso (kg)</mat-label>
+                      <input matInput type="number" formControlName="peso">
+                    </mat-form-field>
+                  </div>
+                </div>
+              }
 
-                <input type="file" (change)="cambiarImagen($event)">
+              @if (usuario.role === 'ENTRENADOR_ROLE') {
+                <div class="p-20">
+                  <div class="form-group">
+                    <mat-form-field class="example-form-field w-100">
+                      <mat-label>Nombre deportivo</mat-label>
+                      <input matInput type="text" formControlName="nombreDeportivo">
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <mat-form-field class="example-form-field w-100">
+                      <mat-label>Titulacion</mat-label>
+                      <input matInput type="text" formControlName="titulacion">
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <mat-form-field class="example-form-field w-100">
+                      <mat-label>Teléfono</mat-label>
+                      <input matInput type="tel" formControlName="telefono">
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <div><label for="entrenadorPorteros">Entrenador de porteros</label></div>
+                    <mat-radio-group id="entrenadorPorteros" aria-labelledby="entrenadorPorteros">
+                      <mat-radio-button class="m-r-10" formControlName="entrenadorPorteros" [value]=true>Si</mat-radio-button>
+                      <mat-radio-button formControlName="entrenadorPorteros" [value]=false>No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              }
 
-                <br><br>
+              @if (usuario.role === 'USER_ROLE') {
+                <div>
+                  <div class="alert alert-info">Hazte un perfil de jugador o entrenador para establecer tus características.</div>
+                </div>
+              }
+            </mat-tab>
+          </mat-tab-group>
+          <button type="submit" class="btn btn-success waves-effect waves-light m-r-10 float-right" [disabled]="perfilForm.invalid">
+            <i class="fa fa-save"></i>
+          Guardar cambios</button>
+        </form>
 
-                <button type="button" [disabled]="!imagenSubir" (click)="subirImagen()" class="btn btn-success waves-effect waves-light m-r-10 float-right">
-                    <i class="fa fa-save"></i>
-                    Cambiar imagen</button>
-
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">Avatar</h3>
+        <h4 class="card-subtitle">Imagen de usuario</h4>
+
+        <div class="img-container text-center">
+          @if (!imgTemp) {
+            <img [src]="usuario.imageUrl" class="img-avatar">
+          }
+          @if (imgTemp) {
+            <img [src]="imgTemp" class="img-avatar">
+          }
+        </div>
+
+        <input type="file" (change)="cambiarImagen($event)">
+
+        <br><br>
+
+        <button type="button" [disabled]="!imagenSubir" (click)="subirImagen()" class="btn btn-success waves-effect waves-light m-r-10 float-right">
+          <i class="fa fa-save"></i>
+        Cambiar imagen</button>
+
+      </div>
+    </div>
+  </div>
 </div>
