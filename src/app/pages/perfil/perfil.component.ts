@@ -128,8 +128,14 @@ export class PerfilComponent implements OnInit {
           this.eliminarClub();
         }
         console.log(this.perfilForm.value);
-        
-        this.jugadorService.actualizarJugador(this.usuarioService.id, this.perfilForm.value)
+
+        const jugadorId = this.jugador?.id || this.usuarioService.id;
+        if (!jugadorId) {
+          Swal.fire('Error', 'ID de usuario no disponible', 'error');
+          return;
+        }
+        console.log('Actualizando jugador con ID:', jugadorId);
+        this.jugadorService.actualizarJugador(jugadorId, this.perfilForm.value)
             .subscribe(resp => {
               const {nombre, apellidos, zona, estadoDeportivo, club, role} = this.perfilForm.value;
               this.usuario.nombre = nombre;
@@ -140,14 +146,19 @@ export class PerfilComponent implements OnInit {
               this.usuario.club = club;
               Swal.fire('Guardado', 'Los cambios se guardaron correctamente', 'success');
             }, err => {
-              Swal.fire('Error', err.error.message, 'error');
+              Swal.fire('Error', err.error?.message || err.message || 'Error al guardar', 'error');
             });
       break;
       case 'ENTRENADOR_ROLE':
         if (this.perfilForm.controls['estadoDeportivo'].value === 'Sin equipo') {
           this.eliminarClub();
         }
-        this.entrenadorService.actualizarEntrenador(this.usuarioService.id, this.perfilForm.value)
+        const entrenadorId = this.entrenador?.id || this.usuarioService.id;
+        if (!entrenadorId) {
+          Swal.fire('Error', 'ID de usuario no disponible', 'error');
+          return;
+        }
+        this.entrenadorService.actualizarEntrenador(entrenadorId, this.perfilForm.value)
             .subscribe(resp => {
               const {nombre, apellidos, zona, estadoDeportivo, club, role} = this.perfilForm.value;
               this.usuario.nombre = nombre;
@@ -156,7 +167,7 @@ export class PerfilComponent implements OnInit {
               this.usuario.role = role;
               Swal.fire('Guardado', 'Los cambios se guardaron correctamente', 'success');
             }, err => {
-              Swal.fire('Error', err.error.message, 'error');
+              Swal.fire('Error', err.error?.message || err.message || 'Error al guardar', 'error');
             });
       break;
       case 'USER_ROLE':
@@ -169,7 +180,7 @@ export class PerfilComponent implements OnInit {
           this.usuario.role = role;
           Swal.fire('Guardado', 'Los cambios se guardaron correctamente', 'success');
         }, err => {
-          Swal.fire('Error', err.error.message, 'error');
+          Swal.fire('Error', err.error?.message || err.message || 'Error al guardar', 'error');
         });
       break;
     }

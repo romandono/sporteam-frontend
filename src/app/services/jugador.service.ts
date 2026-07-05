@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { Jugador } from '../models/usuarios/jugador.model';
-import { pipe } from 'rxjs';
+import { pipe, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { JugadorForm } from '../interfaces/jugador-form.interface';
 
@@ -49,7 +49,11 @@ export class JugadorService {
   }
 
   actualizarJugador(id: string, data: JugadorForm) {
-    console.log(data);
+    if (!id) {
+      console.error('actualizarJugador: ID vacío');
+      return throwError(() => new Error('ID de jugador no proporcionado'));
+    }
+    console.log('PUT /jugador/' + id, data);
     return this.http.put(`${base_url}/jugador/${id}`, data, {
       headers: {
         'token': this.token
