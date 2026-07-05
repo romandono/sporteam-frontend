@@ -2,5 +2,5 @@
 
 export const environment = {
   production: true,
-  base_url: 'https://sporteam-api.onrender.com/'
+  base_url: 'https://sporteam-api.onrender.com/api'
 };
