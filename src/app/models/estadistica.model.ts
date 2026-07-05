@@ -3,7 +3,7 @@
 export class Estadistica {
 
     constructor(
-        public _id: string,
+        public id: string,
         public partidosJugados: number,
         public goles: number,
         public asistencias: number,

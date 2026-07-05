@@ -14,7 +14,7 @@
               <mat-label>Zona</mat-label>
               <mat-select name="zona" [(ngModel)]="zona" (selectionChange)="filterZona(zona)">
                 @for (zona of zonas; track zona) {
-                  <mat-option [value]="zona._id">
+                    <mat-option [value]="zona.id">
                     {{zona.nombreZona}}
                   </mat-option>
                 }
@@ -148,7 +148,7 @@
               <select class="form-control" id="provincia" formControlName="provincia">
                 <option value="">Seleccione...</option>
                 @for (provincia of provincias; track provincia) {
-                  <option [ngValue]="provincia._id">{{provincia.nombre}}</option>
+                  <option [ngValue]="provincia.id">{{provincia.nombre}}</option>
                 }
               </select>
             </div>
@@ -167,7 +167,7 @@
               <select class="form-control" id="zona" formControlName="zona">
                 <option value="">Seleccione...</option>
                 @for (zona of zonas; track zona) {
-                  <option [ngValue]="zona._id">{{zona.nombreZona}}</option>
+                  <option [ngValue]="zona.id">{{zona.nombreZona}}</option>
                 }
               </select>
             </div>

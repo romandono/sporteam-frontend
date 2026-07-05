@@ -9,7 +9,7 @@ export class Club {
 
     constructor(
 
-        public _id: string,
+        public id: string,
         public nombre: string,
         public localidad: string,
         public provincia: Provincia,

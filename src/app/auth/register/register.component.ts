@@ -136,7 +136,7 @@ export class RegisterComponent {
   }
 
   compareWith(option1: any, option2: any): boolean {
-    return option1 && option2 && option1._id === option2._id;
+    return option1 && option2 && option1.id === option2.id;
    }
 
 }

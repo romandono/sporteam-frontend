@@ -18,7 +18,7 @@
               <mat-label>Zona</mat-label>
               <mat-select name="zona" [(ngModel)]="zona" (selectionChange)="filterValue('zona', zona)">
                 @for (zona of zonas; track zona) {
-                  <mat-option [value]="zona._id">
+                    <mat-option [value]="zona.id">
                     {{zona.nombreZona}}
                   </mat-option>
                 }
@@ -29,7 +29,7 @@
               <mat-label>Club</mat-label>
               <mat-select name="club" [(ngModel)]="club" (selectionChange)="filterValue('club', club)">
                 @for (club of clubs; track club) {
-                  <mat-option [value]="club._id">
+                    <mat-option [value]="club.id">
                     {{club.nombre}}
                   </mat-option>
                 }

@@ -53,7 +53,7 @@ export class EntrenadorService {
                   map( resp => {
                     const entrenadores = resp.entrenadores.map( 
                       entrenador => new Entrenador(entrenador.nombre,entrenador.apellidos,entrenador.email,entrenador.image,entrenador.google,
-                        entrenador.role,entrenador._id || entrenador.id,'',entrenador.estado,entrenador.estadoDeportivo,entrenador.zona, entrenador.usertype, entrenador.club,entrenador.nombreDeportivo,
+                        entrenador.role,entrenador.id,'',entrenador.estado,entrenador.estadoDeportivo,entrenador.zona, entrenador.usertype, entrenador.club,entrenador.nombreDeportivo,
                         entrenador.entrenadorPorteros,entrenador.titulacion,entrenador.telefono)
                       );
 

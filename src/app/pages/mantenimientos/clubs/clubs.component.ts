@@ -139,7 +139,7 @@ export class ClubsComponent implements OnInit {
   }
 
   abrirModal(club: Club) {
-    this.modalImagenService.abrirModal('clubs', club._id || '', club.image);
+    this.modalImagenService.abrirModal('clubs', club.id || '', club.image);
   }
 
   buscar(termino: string) {

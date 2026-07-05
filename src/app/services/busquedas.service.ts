@@ -28,13 +28,13 @@ export class BusquedasService {
 
   private transformarUsuarios(resultados: any[]): Usuario[] {
     return resultados.map(
-      user => new Usuario(user.nombre, user.apellidos, user.email, user.image, user.google, user.role, user._id || user.id, '', user.estado, user.estadoDeportivo, user.zona)
+      user => new Usuario(user.nombre, user.apellidos, user.email, user.image, user.google, user.role, user.id, '', user.estado, user.estadoDeportivo, user.zona)
     )
   }
 
   private transformarClubs(resultados: any[]): Club[] {
     return resultados.map(
-      club => new Club(club._id || club.id, club.nombre, club.localidad, club.provincia, club.modalidad, club.image, club.zona, club.users)
+      club => new Club(club.id, club.nombre, club.localidad, club.provincia, club.modalidad, club.image, club.zona, club.users)
     )
   }
 
