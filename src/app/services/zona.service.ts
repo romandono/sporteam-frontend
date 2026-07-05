@@ -20,7 +20,7 @@ export class ZonaService {
                     .pipe(
                       map( resp => {
                         const zonas = resp.zonas.map(
-                          zona => new Zona(zona.nombreZona, zona._id)
+                          zona => new Zona(zona.nombreZona, zona._id || zona.id)
                         );
                         return {
                           zonas

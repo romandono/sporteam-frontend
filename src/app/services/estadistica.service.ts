@@ -30,8 +30,8 @@ export class EstadisticaService {
     .pipe(
       map( (resp: any) => {
         const {
-          _id, partidosJugados, goles, asistencias, tarjetasAmarillas, tarjetasRojas, temporada} = resp.estadistica;
-        let estadistica = new Estadistica(_id, partidosJugados, goles, asistencias, tarjetasAmarillas,tarjetasRojas,temporada);
+          _id, id, partidosJugados, goles, asistencias, tarjetasAmarillas, tarjetasRojas, temporada} = resp.estadistica;
+        let estadistica = new Estadistica(_id || id, partidosJugados, goles, asistencias, tarjetasAmarillas,tarjetasRojas,temporada);
         return estadistica;
       })
     );

@@ -39,9 +39,9 @@ export class JugadorService {
             .pipe(
               map( (resp: any) => {
                 const {
-                  nombre, apellidos, email, image, google, role, _id, password, estado, estadoDeportivo, zona, usertype, club,
+                  nombre, apellidos, email, image, google, role, _id, id, password, estado, estadoDeportivo, zona, usertype, club,
                    nombreDeportivo, fechaNacimiento, lateralidad, demarcacion, altura, peso, estadisticas} = resp.jugador;
-                let jugador = new Jugador(nombre, apellidos, email, image, google, role, _id, password, estado, estadoDeportivo, zona, usertype, club,
+                let jugador = new Jugador(nombre, apellidos, email, image, google, role, _id || id, password, estado, estadoDeportivo, zona, usertype, club,
                   nombreDeportivo, fechaNacimiento, lateralidad, demarcacion, altura, peso, estadisticas);
                 return jugador;
               })

@@ -53,7 +53,7 @@ export class EntrenadorService {
                   map( resp => {
                     const entrenadores = resp.entrenadores.map( 
                       entrenador => new Entrenador(entrenador.nombre,entrenador.apellidos,entrenador.email,entrenador.image,entrenador.google,
-                        entrenador.role,entrenador._id,'',entrenador.estado,entrenador.estadoDeportivo,entrenador.zona, entrenador.usertype, entrenador.club,entrenador.nombreDeportivo,
+                        entrenador.role,entrenador._id || entrenador.id,'',entrenador.estado,entrenador.estadoDeportivo,entrenador.zona, entrenador.usertype, entrenador.club,entrenador.nombreDeportivo,
                         entrenador.entrenadorPorteros,entrenador.titulacion,entrenador.telefono)
                       );
 
@@ -71,9 +71,9 @@ export class EntrenadorService {
             .pipe(
               map( (resp: any) => {
                 const {
-                  nombre, apellidos, email, image, google, role, _id, password, estado, estadoDeportivo, zona, usertype, club,
+                  nombre, apellidos, email, image, google, role, _id, id, password, estado, estadoDeportivo, zona, usertype, club,
                    nombreDeportivo, entrenadorPorteros, titulacion, telefono} = resp.entrenador;
-                let entrenador = new Entrenador(nombre, apellidos, email, image, google, role, _id, password, estado, estadoDeportivo, zona, usertype, club,
+                let entrenador = new Entrenador(nombre, apellidos, email, image, google, role, _id || id, password, estado, estadoDeportivo, zona, usertype, club,
                   nombreDeportivo, entrenadorPorteros, titulacion, telefono);
                 return entrenador;
               })

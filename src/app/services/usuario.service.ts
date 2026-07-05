@@ -148,7 +148,7 @@ export class UsuarioService {
                   map( resp => {
                     const usuarios = resp.usuarios.map( 
                       usuario => new Usuario(usuario.nombre,usuario.apellidos,usuario.email,usuario.image,usuario.google,
-                        usuario.role,usuario._id,'',usuario.estado,usuario.estadoDeportivo,usuario.zona,usuario.usertype, usuario.club)
+                        usuario.role,usuario._id || usuario.id,'',usuario.estado,usuario.estadoDeportivo,usuario.zona,usuario.usertype, usuario.club)
                       );
 
                     return {
@@ -169,7 +169,7 @@ export class UsuarioService {
                   map( resp => {
                     const jugadores = resp.jugadores.map( 
                       jugador => new Jugador(jugador.nombre,jugador.apellidos,jugador.email,jugador.image,jugador.google,
-                        jugador.role,jugador._id,'',jugador.estado,jugador.estadoDeportivo,jugador.zona, jugador.usertype, jugador.club,jugador.nombreDeportivo,
+                        jugador.role,jugador._id || jugador.id,'',jugador.estado,jugador.estadoDeportivo,jugador.zona, jugador.usertype, jugador.club,jugador.nombreDeportivo,
                         jugador.fechaNacimiento,jugador.lateralidad,jugador.demarcacion,jugador.altura,jugador.peso)
                       );
 

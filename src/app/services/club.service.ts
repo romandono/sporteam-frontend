@@ -39,7 +39,7 @@ export class ClubService {
             .pipe(
               map( resp => {
                 const provincias = resp.provincias.map(
-                  provincia => new Provincia(provincia._id, provincia.nombre)
+                  provincia => new Provincia(provincia._id || provincia.id, provincia.nombre)
                 );
                 return {
                   provincias
@@ -56,7 +56,7 @@ export class ClubService {
                 .pipe(
                   map( resp => {
                     const clubs = resp.clubs.map( 
-                      club => new Club(club._id,club.nombre,club.localidad,club.provincia,club.modalidad,club.image,
+                      club => new Club(club._id || club.id,club.nombre,club.localidad,club.provincia,club.modalidad,club.image,
                         club.zona,club.users)
                       );
 
@@ -70,7 +70,7 @@ export class ClubService {
   }
 
   eliminarClub(club: Club) {
-    const url = `${base_url}/club/${club._id}`;
+    const url = `${base_url}/club/${club._id || club.id}`;
     return this.http.delete(url, this.headers);
   }
 }
