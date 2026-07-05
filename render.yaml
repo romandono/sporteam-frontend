@@ -1,9 +1,9 @@
 services:
-  - type: static-site
+  - type: web
     name: sporteam-frontend
     runtime: static
     buildCommand: npm ci && npm run build -- --configuration production
-    staticPublishPath: dist/sporteam-frontend
+    staticPublishPath: ./dist/sporteam-frontend
     routes:
       - type: rewrite
         source: /*
