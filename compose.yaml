@@ -1,0 +1,8 @@
+services:
+  web:
+    build: .
+    image: sporteam-frontend:latest
+    container_name: sporteam-frontend
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:4200:80"
